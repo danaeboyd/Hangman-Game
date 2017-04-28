@@ -37,6 +37,14 @@ function startGame () {
 		blanksAndSuccesses.push("_");
 	}
 
+	// Change HTML to reflect round conditions
+	// .join removes commas between blank spaces.
+	document.getElementById("wordToGuess").innerHTML = blanksAndSuccesses.join(" ");
+	// Relate to Game Counter Variables above.
+	document.getElementById("numGuesses").innerHTML = guessesLeft;
+	document.getElementById("winCounter").innerHTML = winCount;
+	document.getElementById("lossCounter").innerHTML = lossCount;
+
 
 
 	// Testing / Debugging
