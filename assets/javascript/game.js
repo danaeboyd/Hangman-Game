@@ -54,8 +54,42 @@ function startGame () {
 	console.log(blanksAndSuccesses);
 }
 
+// To check the letters that are guessed/typed and run code to see if it matches letter in word.
+// Add an argument that it's expecting called letter.
+// 1. check to see if the letter exists anywhere in the word. Do first to make sure the steps to following
+// are not wasted time in the for loop.
+// Call function below under register keyclicks/document.onkeyup.
+function checkLetters(letter) {
+	// Check to make sure it is being called with alert. Then remove alert.
+	// alert(letter);
+
+	var isLetterInWord = false;
+
+// 2. loops through to check if letter is matching any letter in the word.
+// Check to make sure it is being called with alert. Then remove alert.
+	for (var i = 0; i < numBlanks; i++) {
+		if(selectedWord[i] == letter) {
+			isLetterInWord = true;
+			// alert("Letter found");
+		}
+	}
+}
+
 
 // MAIN PROCESS
 // ========================================================================
-// To make sure the main function will get run, you call the function
+
+// To make sure the main function will initiate the code the first time (you call the function).
 startGame();
+
+// Register keyclicks
+
+// added variable in function letterGuessed.
+document.onkeyup = function(event) {
+	var letterGuessed = String.fromCharCode(event.keyCode).toLowerCase();
+	checkLetters(letterGuessed);
+
+	// Testing / Debugging
+	console.log(letterGuessed);
+	
+}
