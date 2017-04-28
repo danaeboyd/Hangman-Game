@@ -1,7 +1,7 @@
 // GLOBAL VARIABLES
 // ========================================================================
 // Arrays and Variables for holding data
-var wordOptions = ["pineapple", "papaya", "mango", "kiwi", "guava", "banana"]
+var wordOptions = ["pineapple", "papaya", "apple", "mango", "kiwi", "pear", "guava", "banana", "Watermelon"]
 var selectedWord = "";
 var lettersinWord = [];
 var numBlanks = 0;
@@ -73,8 +73,60 @@ function checkLetters(letter) {
 			// alert("Letter found");
 		}
 	}
+
+	// Check where in the word the letter exists, then populate blanksAndSuccesses.
+	if(isLetterInWord) {
+		for (var i = 0; i < numBlanks; i++) {
+			if(selectedWord[i] == letter) {
+				blanksAndSuccesses[i] = letter;
+			}
+		}
+
+	}
+
+	// Letter wasn't found.
+	else {
+		wrongLetters.push(letter);
+		guessesLeft--
+	}
+
+	// Testing / Debugging
+	console.log(blanksAndSuccesses);
 }
 
+// Makes sure game isn't over yet. No arguments.  Call function below under checkLetters.
+function roundComplete() {
+	console.log("Win Count: " + winCount + " | Loss Count: " + lossCount + " | Guesses Left: " + guessesLeft);
+
+	// Update the HTML to reflect the most recent count stats.
+	// .toString - populates the letters in real time. But .join also does this but removes commas.
+	document.getElementById("numGuesses").innerHTML = guessesLeft;
+	document.getElementById("wordToGuess").innerHTML = blanksAndSuccesses.join(" ");
+	document.getElementById("wrongGuesses").innerHTML = wrongLetters.join(" ");
+
+
+	// Check if user won
+	if (lettersinWord.toString() == blanksAndSuccesses.toString()) {
+		winCount++;
+		alert("You Won!");
+
+		// Update the win counter in the HTML.  This goes before the startGame so you can see that you won before it restarts.
+		document.getElementById("winCounter").innerHTML = winCount;
+
+		startGame();
+	}
+	// Check if user lost
+	else if (guessesLeft == 0) {
+		lossCount++;
+		alert("You Lost!");
+
+		// update HTML
+		document.getElementById("lossCounter").innerHTML = lossCount;
+
+		startGame();
+	}
+
+}
 
 // MAIN PROCESS
 // ========================================================================
@@ -88,6 +140,7 @@ startGame();
 document.onkeyup = function(event) {
 	var letterGuessed = String.fromCharCode(event.keyCode).toLowerCase();
 	checkLetters(letterGuessed);
+	roundComplete();
 
 	// Testing / Debugging
 	console.log(letterGuessed);
