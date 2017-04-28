@@ -5,7 +5,7 @@ var wordOptions = ["pineapple", "papaya", "mango", "kiwi", "guava", "banana"]
 var selectedWord = "";
 var lettersinWord = [];
 var numBlanks = 0;
-var blankAndSuccess = []; // p _ _ _ _ _ _ _ _
+var blanksAndSuccesses = []; // p _ _ _ _ _ _ _ _
 var wrongLetters =[];
 
 // Game Counters
@@ -21,10 +21,29 @@ function startGame () {
 	selectedWord = wordOptions[Math.floor(Math.random() * wordOptions.length)];
 	// Break the word apart into individual letters.  This will allow you to have an array of individual letters.
 	lettersinWord = selectedWord.split("");
+	// get number of blanks required for the word
+	numBlanks = lettersinWord.length;
+
+	// RESETS - even though these were set above, those only run on the first round of the program.
+	// Reset number of guesses back to 9 after each round.
+	guessesLeft = 9;
+	// Reset to zero after each round.
+	wrongLetters = [];
+	// Make sure blanks and successes also cleared.
+	blanksAndSuccesses = [];
+
+	// Populate blanksAndSuccesses with the rigth number of initial blanks
+	for (var i=0; i<numBlanks; i++){
+		blanksAndSuccesses.push("_");
+	}
+
+
 
 	// Testing / Debugging
 	console.log(selectedWord);
 	console.log(lettersinWord);
+	console.log(numBlanks);
+	console.log(blanksAndSuccesses);
 }
 
 
